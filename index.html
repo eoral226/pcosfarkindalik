@@ -3,57 +3,273 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PCOS Farkındalık Derneği</title>
+    <title>PCOS Farkındalık Platformu - Yalnız Değilsiniz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; line-height: 1.6; color: #333; }
-        header { background-color: #008080; color: white; padding: 20px; text-align: center; } /* Teal rengi PCOS farkındalık rengidir */
-        nav { background: #333; color: white; padding: 10px; text-align: center; }
-        nav a { color: white; text-decoration: none; margin: 0 15px; }
-        .container { width: 80%; margin: auto; overflow: hidden; padding: 20px; }
-        .card { background: #f4f4f4; padding: 20px; margin-bottom: 20px; border-radius: 5px; }
-        footer { background-color: #333; color: white; text-align: center; padding: 10px; position: fixed; bottom: 0; width: 100%; }
-        h1, h2 { color: #008080; }
-        header h1 { color: white; }
+        /* --- GENEL AYARLAR --- */
+        :root {
+            --primary-color: #00897b; /* Koyu Turkuaz */
+            --secondary-color: #e0f2f1; /* Açık Turkuaz Arka Plan */
+            --text-dark: #333333; /* Koyu Gri Yazı */
+            --text-light: #ffffff; /* Beyaz Yazı */
+            --accent-color: #ff7043; /* Vurgu Rengi (Turuncu-Mercan) */
+        }
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.7;
+            color: var(--text-dark);
+            background-color: #f9f9f9;
+        }
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        a { text-decoration: none; }
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: auto;
+            overflow: hidden;
+            padding: 40px 20px;
+        }
+        .btn {
+            display: inline-block;
+            background: var(--accent-color);
+            color: var(--text-light);
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .btn:hover { background: #e64a19; transform: translateY(-3px); }
+
+        /* --- HEADER (MENÜ) --- */
+        header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+        }
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+        nav ul { list-style: none; margin: 0; padding: 0; display: flex; }
+        nav ul li { margin-left: 25px; }
+        nav ul li a {
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+        nav ul li a:hover { color: var(--primary-color); }
+
+        /* --- HERO BÖLÜMÜ (ANA GİRİŞ) --- */
+        #hero {
+            /* Buraya ileride gerçek bir fotoğraf koyacağız */
+            background: linear-gradient(rgba(0, 137, 123, 0.8), rgba(0, 137, 123, 0.8)), url('https://via.placeholder.com/1500x600?text=PCOS+Farkindalik+Gorseli') no-repeat center center/cover;
+            height: 80vh; /* Ekranın %80'ini kapla */
+            color: var(--text-light);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+        #hero h1 {
+            font-size: 3.5rem;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        #hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin-bottom: 30px;
+        }
+
+        /* --- BÖLÜMLER ORTAK --- */
+        section { padding: 60px 0; }
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        /* Başlık altındaki çizgi */
+        .section-title::after {
+            content: '';
+            width: 80px;
+            height: 4px;
+            background: var(--accent-color);
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        /* --- KART TASARIMLARI (BELİRTİLER vs.) --- */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            text-align: center;
+            transition: 0.3s;
+            border-bottom: 4px solid transparent;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            border-bottom: 4px solid var(--primary-color);
+        }
+        .card-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        /* --- HAKKIMIZDA BÖLÜMÜ --- */
+        #hakkimizda { background-color: var(--secondary-color); }
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        .about-text { flex: 1; }
+        /* İleride buraya dernek logosu veya fotoğraf gelecek */
+        .about-image-placeholder {
+            flex: 1;
+            height: 300px;
+            background: #b2dfdb; /* Placeholder rengi */
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: var(--primary-color);
+            color: var(--text-light);
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+        }
+        footer p { margin: 0; }
+
+        /* --- MOBİL UYUM --- */
+        @media (max-width: 768px) {
+            .navbar { flex-direction: column; }
+            nav ul { margin-top: 20px; }
+            nav ul li { margin: 0 10px; }
+            #hero h1 { font-size: 2.5rem; }
+            #hero p { font-size: 1rem; }
+            .about-content { flex-direction: column; }
+            .about-image-placeholder { width: 100%; height: 200px; }
+        }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>PCOS Farkındalık Derneği</h1>
-        <p>Polikistik Over Sendromu ile Mücadelede Yanınızdayız</p>
+        <div class="navbar">
+            <div class="logo">PCOS Farkındalık</div>
+            <nav>
+                <ul>
+                    <li><a href="#hero">Ana Sayfa</a></li>
+                    <li><a href="#hakkimizda">Hakkımızda</a></li>
+                    <li><a href="#belirtiler">Belirtiler</a></li>
+                    <li><a href="#iletisim">İletişim</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
-    <nav>
-        <a href="#">Ana Sayfa</a>
-        <a href="#nedir">PCOS Nedir?</a>
-        <a href="#belirtiler">Belirtiler</a>
-        <a href="#iletisim">İletişim</a>
-    </nav>
+    <section id="hero">
+        <h1>Yalnız Değilsiniz.</h1>
+        <p>Polikistik Over Sendromu (PCOS) ile yaşayan milyonlarca kadından birisiniz. Bilinçlenmek, en güçlü tedavi adımıdır. Yolculuğunuzda yanınızdayız.</p>
+        <a href="#hakkimizda" class="btn">Daha Fazla Bilgi Alın</a>
+    </section>
 
-    <div class="container">
-        <div id="nedir" class="card">
-            <h2>PCOS Nedir?</h2>
-            <p>Polikistik Over Sendromu (PCOS), üreme çağındaki kadınlarda sık görülen hormonal bir bozukluktur. Amacımız bu konuda toplumu bilinçlendirmek ve destek olmaktır.</p>
+    <section id="hakkimizda">
+        <div class="container">
+            <h2 class="section-title">Biz Kimiz?</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>PCOS Farkındalık Platformu olarak amacımız, Polikistik Over Sendromu hakkında toplumda doğru bilinen yanlışları düzeltmek, bilimsel veriler ışığında bilgi sağlamak ve kadınlar arasında güçlü bir dayanışma ağı oluşturmaktır.</p>
+                    <p>Bu sendrom sadece bir üreme sağlığı sorunu değil, yaşam boyu yönetilmesi gereken metabolik bir durumdur. Erken teşhis ve doğru yaşam tarzı değişiklikleriyle kaliteli bir yaşam mümkündür.</p>
+                    <p><strong>Misyonumuz:</strong> Bilinçlendir, Güçlendir, Destekle.</p>
+                </div>
+                <div class="about-image-placeholder">
+                    Buraya Görsel Gelecek
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div id="belirtiler" class="card">
-            <h2>Yaygın Belirtiler</h2>
-            <ul>
-                <li>Düzensiz adet döngüleri</li>
-                <li>Aşırı tüylenme (Hirsutizm)</li>
-                <li>Akne ve cilt yağlanması</li>
-                <li>Kilo alma veya kilo vermede zorluk</li>
-            </ul>
+    <section id="belirtiler">
+        <div class="container">
+            <h2 class="section-title">Yaygın Belirtiler</h2>
+            <p style="text-align: center; margin-bottom: 40px;">PCOS her kadında farklı seyredebilir, ancak en sık karşılaşılan durumlar şunlardır:</p>
+            
+            <div class="grid-3">
+                <div class="card">
+                    <div class="card-icon">📅</div>
+                    <h3>Düzensiz Adetler</h3>
+                    <p>Yılda 9'dan az adet görme veya döngülerin 35 günden uzun sürmesi en yaygın işarettir.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">👩‍🦰</div>
+                    <h3>Hirsutizm (Tüylenme)</h3>
+                    <p>Yüksek androjen (erkeklik hormonu) seviyelerine bağlı olarak yüz ve vücutta aşırı tüylenme.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">⚖️</div>
+                    <h3>Kilo Problemleri</h3>
+                    <p>İnsülin direnci nedeniyle kolay kilo alma ve kilo vermede zorluk yaşama.</p>
+                </div>
+                 <div class="card">
+                    <div class="card-icon">🧴</div>
+                    <h3>Akne ve Cilt Sorunları</h3>
+                    <p>Hormonal dengesizlikler inatçı sivilcelere ve cilt yağlanmasına yol açabilir.</p>
+                </div>
+            </div>
         </div>
-        
-        <div id="iletisim" class="card">
-            <h2>Bize Ulaşın</h2>
-            <p>Sorularınız ve destek için bize e-posta gönderebilirsiniz: ornek@pcosdernegi.org</p>
-        </div>
-    </div>
+    </section>
 
-    <br><br><br> <footer>
-        <p>Tüm Hakları Saklıdır &copy; 2025 PCOS Farkındalık</p>
+    <section id="iletisim" style="background-color: #333; color: white; text-align: center;">
+        <div class="container">
+            <h2 style="color: white;">Bize Katılın & Destek Alın</h2>
+            <p>Sorularınız, gönüllülük talepleriniz veya sadece konuşmak için bize ulaşmaktan çekinmeyin.</p>
+            <p style="font-size: 1.2rem; margin-top: 20px;">📧 E-posta: <a href="mailto:bilgi@pcosfarkindalik.org" style="color: var(--accent-color);">bilgi@pcosfarkindalik.org</a></p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 PCOS Farkındalık Platformu. Tüm hakları saklıdır. Sağlık tavsiyesi değildir, bilgilendirme amaçlıdır.</p>
     </footer>
 
 </body>
